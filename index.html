@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Masai Doctor Records</title>
+    <style>
+      #div1 {
+        display: flex;
+        justify-content: center;
+      }
+      #div2 {
+        display: flex;
+        width: 40%;
+        flex-direction: column;
+      }
+      form {
+        margin: 0 ;
+        margin-top: 50px;
+        width: 90%;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        padding: 30px;
+      }
+      label {
+        font-size: 20px;
+      }
+      table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin: auto;
+        margin-top: 50px;
+        text-align: center;
+      }
+      table td,
+      table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      table tr:nth-child(even) {
+        background-color: #8caacf;
+      }
+
+      table tr:hover {
+        background-color: rgb(190, 190, 190);
+      }
+      table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #0468aa;
+        color: white;
+        text-align: center;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      input[type="text"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+      }
+      input{
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+      }
+      input[type="submit"] {
+        background-color: #2b619e;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 20px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #3973b6;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 50px;
+        text-transform: uppercase;
+        font-family: monospace;
+        color: #2b619e;
+        text-decoration: underline;
+      }
+
+      #DeleteButt:hover{
+        cursor: pointer;
+      }
+
+      #filter{
+        width:90%;
+
+      }
+  </style>
+  </head>
+  <body>
+    <!-- Use this form for data input  -->
+    <div id="div1">
+      <div id="div2">
+    <form>
+      <input placeholder="Name" type="text" id="name" />
+      <input placeholder="Doctor ID" type="text" id="doctor_id" />
+      <select id="specialization">
+        <option value="">Select Specialization</option>
+        <option value="Dermatologist">Dermatologist</option>
+        <option value="Dentist">Dentist</option>
+        <option value="Gynecologist">Gynecologist</option>
+      </select>
+      <input placeholder="Experience" type="number" id="experience" />
+      <input placeholder="Email" type="email" id="email" />
+      <input placeholder="Mobile No." type="number" id="mobile" />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <!-- Use this Select tag for filter part  -->
+    <select id="filter">
+      <option value="">Select Specialization</option>
+      <option value="Dermatologist">Dermatologist</option>
+      <option value="Dentist">Dentist</option>
+      <option value="Gynecologist">Gynecologist</option>
+    </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Doctor ID</th>
+          <th>Specialization</th>
+          <th>Experience in Years</th>
+          <th>Email</th>
+          <th>Mobile No</th>
+          <th>Role</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Append Rows here using JS & DOM  -->
+      </tbody>
+    </table>
+  </div>
+  </body>
+  
+  <script>
+    document.querySelector("form").addEventListener("submit",record);
+    function record(event){
+      event.preventDefault();
+      var name = document.querySelector("#name").value;
+      var doctorId = document.querySelector("#doctor_id").value;
+      var specialization = document.querySelector("#specialization").value;
+      var experience = document.querySelector("#experience").value;
+      var email = document.querySelector("#email").value;
+      var mobile = document.querySelector("#mobile").value;
+
+      
+
+      // ROW
+      let tRow = document.createElement("tr");
+      tRow.setAttribute("id","trow")
+      // 1st col
+      let td1 = document.createElement("td");
+      td1.innerText = name;
+      
+      // 2nd col
+      let td2 = document.createElement("td");
+      td2.innerText = doctorId;
+      
+      // 3rd col
+      let td3 = document.createElement("td");
+      td3.innerText = specialization;
+      
+      // 4th col
+      let td4 = document.createElement("td");
+      td4.innerText = experience;
+      if(experience<0){
+        alert("Plzz enter Valid Experience");
+        td4.innerText = 0;
+      }
+      
+      // 5th col
+      let td5 = document.createElement("td");
+      td5.innerText = email;
+      
+      // 6th col
+      let td6 = document.createElement("td");
+      td6.innerText = mobile;
+      //  7th col
+      let td7 = document.createElement("td");
+        if(experience>=5){
+          td7.innerText = "Senior"
+        }else if(experience>=2 && experience<5){
+          td7.innerText = "Junior"
+        }else if(experience<=1){
+          td7.innerText = "Trainee"
+        }
+      
+      // 8th col
+      let td8 = document.createElement("td");
+      td8.setAttribute("id","DeleteButt")
+      td8.innerText = "Delete";
+      td8.style.backgroundColor = "red";
+      td8.addEventListener("click",deleteRecord);
+
+      
+      
+
+      tRow.append(td1,td2,td3,td4,td5,td6,td7,td8);
+
+      document.querySelector("tbody").append(tRow);
+      
+    }
+
+    
+    
+    function deleteRecord(event){
+      event.target.parentNode.remove();
+    }
+  </script>
+</html>
